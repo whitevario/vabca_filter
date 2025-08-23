@@ -30,12 +30,12 @@ def parse_txt_to_df(path: str, file_name: str) -> pd.DataFrame:
         if not m:
             continue
 
-        no_va  = m.group(1).strip()
-        nama   = m.group(2).rstrip()
+        no_va = m.group(1).strip()
+        nama = m.group(2).rstrip()
         amount = float(m.group(3).replace(",", ""))
-        date   = m.group(4)
-        time   = m.group(5)
-        tail   = (m.group(6) or "")
+        date = m.group(4)
+        time = m.group(5)
+        tail = (m.group(6) or "")
 
         # Bersihkan tail
         tail = re.sub(r"\d+", " ", tail).replace("-", " ")
@@ -45,12 +45,14 @@ def parse_txt_to_df(path: str, file_name: str) -> pd.DataFrame:
 
         rows.append([date, time, no_va, remark, amount, sub_comp, file_name])
 
-    return pd.DataFrame(rows, columns=["DATE", "TIME", "NO.VA", "REMARK", "CREDIT", "SUBCOMPANY", "ASAL_FILE"])
+    return pd.DataFrame(
+        rows,
+        columns=["DATE", "TIME", "NO.VA", "REMARK", "CREDIT", "SUBCOMPANY", "ASAL_FILE"]
+    )
 
 # ========================= STREAMLIT APP =========================
 
 st.title("📑 Pemisah Transaksi VABCA")
-
 # tampilkan nama Anda di layar
 st.markdown("👩‍💻 Created by **Tri**@2025")
 
@@ -95,17 +97,12 @@ if st.session_state.data_ready:
     st.download_button(
         label="⬇️ Download Excel",
         data=buffer,
-        file_name="excel_VABCA.xlsx",
+        file_name="rekening_koran_all.xlsx",
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
 
     # Tombol reset
-   if st.button("🔄 Reset"):
+    if st.button("🔄 Reset"):
         st.session_state.clear()
-        st.session_state.uploader_key = random.randint(0, 1_000_000)  # generate key baru
+        st.session_state.uploader_key = random.randint(0, 1_000_000)
         st.rerun()
-
-
-
-
-
