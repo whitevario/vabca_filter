@@ -4,7 +4,7 @@ import re
 import os
 from io import BytesIO
 
-st.set_page_config(page_title="Rekening Koran Converter", layout="wide")
+st.set_page_config(page_title="VABCA Converter", layout="wide")
 
 def parse_txt_to_df(path: str, file_name: str) -> pd.DataFrame:
     with open(path, "r", encoding="utf-8") as f:
@@ -75,8 +75,9 @@ if uploaded_files:
         st.download_button(
             label="⬇️ Download Excel",
             data=buffer,
-            file_name="rekening_koran_all.xlsx",
+            file_name="excel_VABCA.xlsx",
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         )
+
 
 
