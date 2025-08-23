@@ -47,7 +47,8 @@ def parse_txt_to_df(path: str, file_name: str) -> pd.DataFrame:
     return pd.DataFrame(rows, columns=["DATE", "TIME", "NO.VA", "REMARK", "CREDIT", "SUBCOMPANY", "ASAL_FILE"])
 
 st.title("📑 Rekening Koran TXT → Excel")
-
+# tampilkan nama Anda di layar
+st.markdown("👩‍💻 Created by **Tri**@2025")
 uploaded_files = st.file_uploader("Upload file TXT rekening koran", type="txt", accept_multiple_files=True)
 
 if uploaded_files:
