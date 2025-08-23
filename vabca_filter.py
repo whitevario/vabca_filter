@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import re
 import os
+import random
 from io import BytesIO
 
 st.set_page_config(page_title="VABCA Converter", layout="wide")
@@ -56,12 +57,14 @@ st.markdown("👩‍💻 Created by **Tri**@2025")
 # init state
 if "data_ready" not in st.session_state:
     st.session_state.data_ready = False
+if "uploader_key" not in st.session_state:
+    st.session_state.uploader_key = random.randint(0, 1_000_000)
 
 uploaded_files = st.file_uploader(
     "Upload file TXT rekening koran",
     type="txt",
     accept_multiple_files=True,
-    key="file_uploader"
+    key=st.session_state.uploader_key
 )
 
 if uploaded_files and not st.session_state.data_ready:
@@ -97,8 +100,11 @@ if st.session_state.data_ready:
     )
 
     # Tombol reset
-    if st.button("🔄 Reset"):
-        st.session_state.clear()
-        st.rerun()
+   if st.button("🔄 Reset"):
+    st.session_state.clear()
+    st.session_state.uploader_key = random.randint(0, 1_000_000)  # generate key baru
+    st.rerun()
+
+
 
 
