@@ -36,7 +36,7 @@ def parse_txt_to_df(path: str, file_name: str) -> pd.DataFrame:
         time   = m.group(5)
         tail   = (m.group(6) or "")
 
-        # Bersihkan tail (keterangan)
+        # Bersihkan tail
         tail = re.sub(r"\d+", " ", tail).replace("-", " ")
         tail = re.sub(r"\s+", " ", tail).strip()
 
@@ -46,15 +46,27 @@ def parse_txt_to_df(path: str, file_name: str) -> pd.DataFrame:
 
     return pd.DataFrame(rows, columns=["DATE", "TIME", "NO.VA", "REMARK", "CREDIT", "SUBCOMPANY", "ASAL_FILE"])
 
+# ========================= STREAMLIT APP =========================
+
 st.title("📑 Pemisah Transaksi VABCA")
+
 # tampilkan nama Anda di layar
 st.markdown("👩‍💻 Created by **Tri**@2025")
-uploaded_files = st.file_uploader("Upload file TXT rekening koran [bisa banyak]", type="txt", accept_multiple_files=True)
 
-if uploaded_files:
+# init state
+if "data_ready" not in st.session_state:
+    st.session_state.data_ready = False
+
+uploaded_files = st.file_uploader(
+    "Upload file TXT rekening koran",
+    type="txt",
+    accept_multiple_files=True,
+    key="file_uploader"
+)
+
+if uploaded_files and not st.session_state.data_ready:
     all_data = []
     for uploaded in uploaded_files:
-        # Simpan file sementara
         tmp_path = os.path.join("/tmp", uploaded.name)
         with open(tmp_path, "wb") as f:
             f.write(uploaded.read())
@@ -63,25 +75,28 @@ if uploaded_files:
 
     if all_data:
         final_df = pd.concat(all_data, ignore_index=True)
+        st.session_state.final_df = final_df
+        st.session_state.data_ready = True
 
-        st.success(f"Berhasil memproses {len(uploaded_files)} file. Total {len(final_df)} transaksi.")
-        st.dataframe(final_df.head(20))
+if st.session_state.data_ready:
+    final_df = st.session_state.final_df
 
-        # Simpan ke Excel di memory
-        buffer = BytesIO()
-        final_df.to_excel(buffer, index=False)
-        buffer.seek(0)
+    st.success(f"✅ Berhasil memproses {len(final_df)} transaksi.")
+    st.dataframe(final_df.head(20))
 
-        st.download_button(
-            label="⬇️ Download Excel",
-            data=buffer,
-            file_name="excel_VABCA.xlsx",
-            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        )
-        
+    # Save ke Excel in-memory
+    buffer = BytesIO()
+    final_df.to_excel(buffer, index=False)
+    buffer.seek(0)
+
+    st.download_button(
+        label="⬇️ Download Excel",
+        data=buffer,
+        file_name="excel_VABCA.xlsx",
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
+
     # Tombol reset
     if st.button("🔄 Reset"):
         st.session_state.clear()
         st.experimental_rerun()
-
-
