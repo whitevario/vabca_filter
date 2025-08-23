@@ -49,7 +49,7 @@ def parse_txt_to_df(path: str, file_name: str) -> pd.DataFrame:
 st.title("📑 Pemisah Transaksi VABCA")
 # tampilkan nama Anda di layar
 st.markdown("👩‍💻 Created by **Tri**@2025")
-uploaded_files = st.file_uploader("Upload file TXT rekening koran", type="txt", accept_multiple_files=True)
+uploaded_files = st.file_uploader("Upload file TXT rekening koran [bisa banyak]", type="txt", accept_multiple_files=True)
 
 if uploaded_files:
     all_data = []
@@ -78,4 +78,5 @@ if uploaded_files:
             file_name="rekening_koran_all.xlsx",
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         )
+
 
