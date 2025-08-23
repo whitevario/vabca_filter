@@ -81,7 +81,7 @@ if uploaded_files and not st.session_state.data_ready:
 if st.session_state.data_ready:
     final_df = st.session_state.final_df
 
-    st.success(f"✅ Berhasil memproses {len(final_df)} transaksi.")
+    st.success(f"✅ Berhasil memproses {len(uploaded_files)} file. Total {len(final_df)} transaksi.")
     st.dataframe(final_df.head(20))
 
     # Save ke Excel in-memory
@@ -100,3 +100,4 @@ if st.session_state.data_ready:
     if st.button("🔄 Reset"):
         st.session_state.clear()
         st.experimental_rerun()
+
