@@ -99,5 +99,6 @@ if st.session_state.data_ready:
     # Tombol reset
     if st.button("🔄 Reset"):
         st.session_state.clear()
-        st.experimental_rerun()
+        st.rerun()
+
 
