@@ -101,9 +101,10 @@ if st.session_state.data_ready:
 
     # Tombol reset
    if st.button("🔄 Reset"):
-    st.session_state.clear()
-    st.session_state.uploader_key = random.randint(0, 1_000_000)  # generate key baru
-    st.rerun()
+        st.session_state.clear()
+        st.session_state.uploader_key = random.randint(0, 1_000_000)  # generate key baru
+        st.rerun()
+
 
 
 
