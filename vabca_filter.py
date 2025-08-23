@@ -78,6 +78,10 @@ if uploaded_files:
             file_name="excel_VABCA.xlsx",
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         )
-
+        
+    # Tombol reset
+    if st.button("🔄 Reset"):
+        st.session_state.clear()
+        st.experimental_rerun()
 
 
