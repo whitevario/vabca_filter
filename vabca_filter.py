@@ -54,7 +54,7 @@ def parse_txt_to_df(path: str, file_name: str) -> pd.DataFrame:
 
 st.title("📑 Pemisah Transaksi VABCA")
 # tampilkan nama Anda di layar
-st.markdown("👩‍💻 Created by **Tri**@2025")
+st.markdown("👩‍💻 Created by **Tri**©2025")
 
 # init state
 if "data_ready" not in st.session_state:
@@ -106,3 +106,4 @@ if st.session_state.data_ready:
         st.session_state.clear()
         st.session_state.uploader_key = random.randint(0, 1_000_000)
         st.rerun()
+
