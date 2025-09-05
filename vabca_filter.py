@@ -107,3 +107,25 @@ if st.session_state.data_ready:
         st.session_state.uploader_key = random.randint(0, 1_000_000)
         st.rerun()
 
+# ---------- Kredit tetap di kiri bawah ----------
+st.markdown(
+    """
+    <style>
+    .kredit-fixed {
+        position: fixed;
+        left: 12px;
+        bottom: 12px;
+        z-index: 9999;
+        color: rgba(100,100,100,0.9);
+        font-size: 13px;
+        background: rgba(255,255,255,0.6);
+        padding: 4px 8px;
+        border-radius: 6px;
+        backdrop-filter: blur(4px);
+        pointer-events: none;
+    }
+    </style>
+    <div class="kredit-fixed">© 2025 Created by Tri 👩‍💻</div>
+    """,
+    unsafe_allow_html=True
+)
