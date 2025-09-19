@@ -33,8 +33,10 @@ def parse_txt_to_df(path: str, file_name: str) -> pd.DataFrame:
         no_va = m.group(1).strip()
         nama = m.group(2).rstrip()
         amount = float(m.group(3).replace(",", ""))
-        date = m.group(4)
+        date_raw = m.group(4)
         time = m.group(5)
+        # ubah jadi tahun 4 digit
+        date = pd.to_datetime(date_raw, format="%d/%m/%y").strftime("%d/%m/%Y")
         tail = (m.group(6) or "")
 
         # Bersihkan tail
@@ -131,4 +133,5 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
 
