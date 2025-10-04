@@ -54,7 +54,7 @@ def parse_txt_to_df(path: str, file_name: str) -> pd.DataFrame:
 
 # ========================= STREAMLIT APP =========================
 
-st.title("📑 Pemisah Transaksi VABCA")
+st.title("🏦 Pemisah Transaksi VABCA")
 # tampilkan nama Anda di layar
 st.markdown("👩‍💻 Created by **Tri**©2025")
 
@@ -133,5 +133,6 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
 
 
