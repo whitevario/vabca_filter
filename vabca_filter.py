@@ -14,6 +14,10 @@ def parse_txt_to_df(path: str, file_name: str) -> pd.DataFrame:
     rows = []
     sub_comp = None
 
+    # Ambil 5 digit dari nama file
+    match = re.search(r"R-5401_(\d{5})_", file_name)
+    comp_code = match.group(1) if match else ""
+
     for line in lines:
         # Cek SUB-COMP
         m_sc = re.search(r"SUB-COMP\s+(\d+)", line)
@@ -45,11 +49,11 @@ def parse_txt_to_df(path: str, file_name: str) -> pd.DataFrame:
 
         remark = f"{nama} {tail}".strip()
 
-        rows.append([sub_comp, no_va, remark, amount, date, time, file_name])
+        rows.append([comp_code, sub_comp, no_va, remark, amount, date, time, file_name])
 
     return pd.DataFrame(
         rows,
-        columns=[ "SUBCOMPANY", "NO.VA", "REMARK", "CREDIT", "DATE", "TIME", "ASAL_FILE"]
+        columns=[ "COMPANY CODE", "SUBCOMPANY", "NO.VA", "REMARK", "CREDIT", "DATE", "TIME", "ASAL_FILE"]
     )
 
 # ========================= STREAMLIT APP =========================
@@ -133,6 +137,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
 
 
 
