@@ -49,11 +49,11 @@ def parse_txt_to_df(path: str, file_name: str) -> pd.DataFrame:
 
         remark = f"{nama} {tail}".strip()
 
-        rows.append([comp_code, sub_comp, no_va, remark, amount, date, time, file_name])
+        rows.append([comp_code, sub_comp, no_va, remark, "IDR", amount, date, time, file_name])
 
     return pd.DataFrame(
         rows,
-        columns=[ "COMPANY CODE", "SUBCOMPANY", "NO.VA", "REMARK", "CREDIT", "DATE", "TIME", "ASAL_FILE"]
+        columns=[ "COMPANY CODE", "SUBCOMPANY", "NO.VA", "REMARK", "MATA UANG", "CREDIT", "DATE", "TIME", "ASAL_FILE"]
     )
 
 # ========================= STREAMLIT APP =========================
@@ -137,6 +137,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
 
 
 
