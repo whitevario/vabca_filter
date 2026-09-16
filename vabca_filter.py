@@ -132,7 +132,7 @@ st.markdown(
     }
     </style>
     <div class="kredit-fixed">© 2025 Created by Tri 👩‍💻
-    💖 Beri Kontribusi Sekarang shopeepay BRI: 112-08175229969
+    💖 Pay Now --> shopeepay BRI: 112-08175229969
     Terima kasih banyak atas dukunganmu! 🙏</div>
     """,
     unsafe_allow_html=True
